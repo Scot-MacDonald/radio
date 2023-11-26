@@ -1,0 +1,48 @@
+.header {
+  background-color: #fff;
+  color: black;
+  padding: 0rem;
+  border-bottom: 1px solid white;
+  margin-bottom: 20px;
+  display: flex;
+  font-size: 14px;
+}
+.main {
+  flex: 1;
+  order: 2;
+  background: black;
+  color: white;
+  padding: 0.2rem 0.2rem;
+  display: flex;
+}
+.sidebarfirst {
+  width: 80px;
+  background: white;
+  order: 1;
+  padding: 0.5rem;
+}
+.sidebarsecond {
+  flex: 1;
+  order: 3;
+  background: black;
+  color: white;
+  padding: 0.5rem;
+  border-left: 1px solid white;
+  padding: 0.2rem 0.2rem;
+  display: flex;
+}
+
+.channel {
+  background: white;
+  color: black;
+  padding: 0.3rem 0.5rem;
+  margin-right: 10px;
+}
+.country {
+  padding: 0.3rem 0.5rem;
+  align-items: flex-end;
+  margin-left: auto;
+}
+.name {
+  padding: 0.3rem 0.5rem;
+}

@@ -40,9 +40,10 @@ export default function MixList() {
             <div className={styles.mixTags}>
               {mix.tags && mix.tags.length > 0 && (
                 <div>
-                  <strong>Tags: </strong>
                   {mix.tags.map((tagItem, index) => (
-                    <span key={index}>{tagItem}</span>
+                    <span className={styles.mixTag} key={index}>
+                      {tagItem}
+                    </span>
                   ))}
                 </div>
               )}
