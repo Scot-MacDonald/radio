@@ -1,0 +1,188 @@
+/* Existing styles ... */
+
+.mixes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  gap: 20px;
+}
+
+.mix {
+  width: calc(20% - 30px);
+
+  box-sizing: border-box;
+}
+
+.mixContent {
+  position: relative;
+  overflow: hidden;
+  padding: 8px;
+  border: 1px solid #666;
+  flex-direction: column;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+/* .mixContent img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  } */
+
+.imageContainer {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.imageContainer img {
+  width: 100%;
+
+  object-fit: cover; /* Use object-fit to maintain aspect ratio */
+}
+
+/* Media queries to override width */
+@media (min-width: 768px) {
+  .mix {
+    width: calc(50% - 20px);
+    min-width: calc(50% - 20px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .mix {
+    width: calc(33.3333% - 20px);
+    min-width: calc(33.3333% - 20px);
+  }
+}
+
+@media (min-width: 1190px) {
+  .mix {
+    width: calc(25% - 20px);
+    min-width: calc(25% - 20px);
+  }
+}
+
+@media (min-width: 1500px) {
+  .mix {
+    width: calc(20% - 20px);
+    min-width: calc(20% - 20px);
+  }
+}
+
+/* Existing styles ... */
+
+/* Existing styles ... */
+
+/* ... (rest of the styles remain the same) */
+/* .mixHeader {
+    padding-bottom: 80px;
+  } */
+.mixTags {
+  font-size: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  margin: 0;
+  padding: 0 12px;
+}
+
+.mixTag {
+  font-size: 12px;
+  margin: 2px;
+  padding: 6px 8px;
+  border: 1px solid #4c4c4c;
+  color: #ccc;
+  text-decoration: none;
+  -webkit-transition: background-color 0.1s linear;
+  -moz-transition: background-color 0.1s linear;
+  -ms-transition: background-color 0.1s linear;
+  -o-transition: background-color 0.1s linear;
+  transition: background-color 0.1s linear;
+}
+
+.mixDate {
+  font-size: 12px;
+  margin: px; /* Add a value for margin */
+  padding: 10px 5px;
+  color: #ccc;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Additional styles */
+
+.imageContainer {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 10px; /* Add margin bottom for separation */
+}
+
+.imageContainer img {
+  width: 100%;
+
+  display: block;
+  transition: filter 0.5s ease; /* Smooth transition for the filter */
+}
+
+.imageContainer:hover img {
+  filter: brightness(30%); /* Adjust the brightness to your preference */
+}
+.red-filter {
+  filter: grayscale(0%) sepia(100%) saturate(10000%) hue-rotate(0deg)
+    brightness(100%) contrast(100%);
+}
+.playButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.5s ease, background-color 0.5s ease;
+}
+
+.imageContainer:hover .playButton {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.playButton svg {
+  fill: white;
+}
+
+.mixTitle {
+  color: white; /* or any other styling for a link */
+  /* text-decoration: underline; */
+  cursor: pointer;
+}
+
+.mixHeader {
+  margin-bottom: 80px;
+  transition: background-color 0.3s ease;
+}
+
+.mixHeader:hover {
+  background-color: white;
+  color: black;
+  cursor: pointer; /* Optional: Change cursor on hover */
+}
+
+.mixHeader:hover .mixDate {
+  color: black;
+}
+
+.mixHeader:hover .mixTitle {
+  color: black;
+}
