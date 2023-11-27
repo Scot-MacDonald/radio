@@ -8,6 +8,7 @@ const mixSchema = new Schema({
   country: { type: String, required: true },
   date: { type: Date, required: true },
   tags: { type: [String], default: [] },
+  description: { type: String, required: true },
 });
 
 const Mix = mongoose.models.Mix || mongoose.model("Mix", mixSchema);

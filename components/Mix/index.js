@@ -11,22 +11,18 @@ export default function Mix() {
 
   const { data, isLoading, mutate } = useSWR(`/api/mixes/${id}`);
 
-  async function handleEdit(event) {
-    event.preventDefault();
-
-    const formData = new FormData(event.target);
-    const mixData = Object.fromEntries(formData);
-
+  async function handleEdit(formData) {
     const response = await fetch(`/api/mixes/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(mixData),
+      body: JSON.stringify(formData),
     });
 
     if (response.ok) {
       mutate();
+      setIsEditMode(false); // Exit edit mode after successful update
     }
   }
 
@@ -45,7 +41,7 @@ export default function Mix() {
     return <h1>Loading...</h1>;
   }
 
-  if (!data) return;
+  if (!data) return null;
 
   return (
     <>
@@ -53,6 +49,7 @@ export default function Mix() {
       <h1>{data.mix} </h1>
       <h1>{data.description}</h1>
       <h1>{data.country}</h1>
+      <h1>{data.tags}</h1>
       <div>
         <button
           onClick={() => {
@@ -69,9 +66,11 @@ export default function Mix() {
           </span>
         </button>
       </div>
+
       {isEditMode && (
-        <MixForm onSubmit={handleEdit} value={data.mix} isEditMode={true} />
+        <MixForm onSubmit={handleEdit} value={data} isEditMode={true} />
       )}
+
       <Link href="/">Back to all</Link>
     </>
   );
