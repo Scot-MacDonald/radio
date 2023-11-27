@@ -1,3 +1,4 @@
+// MixList.js
 import useSWR from "swr";
 import Link from "next/link";
 import styles from "@/styles/mixes.module.css";
@@ -21,7 +22,7 @@ export default function MixList() {
           <div className={styles.mixContent}>
             <div className={styles.imageContainer}>
               <Image
-                src={mix.imageURL} // Use the new imageURL field
+                src={mix.imageURL}
                 alt={`Image for ${mix.title}`}
                 width={320}
                 height={200}
@@ -30,7 +31,7 @@ export default function MixList() {
             <div className={styles.mixHeader}>
               <Link href={`/${mix._id}`}>
                 <div className={styles.mixDate}>
-                  <div>{mix.date}</div>
+                  <div>{new Date(mix.date).toLocaleDateString()}</div>
                   <div>{mix.country}</div>
                 </div>
                 <div className={styles.mixTitle}>{mix.title}</div>
@@ -38,15 +39,15 @@ export default function MixList() {
             </div>
 
             <div className={styles.mixTags}>
-              {mix.tags && mix.tags.length > 0 && (
-                <div>
-                  {mix.tags.map((tagItem, index) => (
+              <div>
+                {mix.tags
+                  .flatMap((tagItem) => tagItem.split(","))
+                  .map((tag, index) => (
                     <span className={styles.mixTag} key={index}>
-                      {tagItem}
+                      {tag.trim()}
                     </span>
                   ))}
-                </div>
-              )}
+              </div>
             </div>
           </div>
         </li>

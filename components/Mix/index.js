@@ -52,6 +52,7 @@ export default function Mix() {
       <small>ID: {id}</small>
       <h1>{data.mix} </h1>
       <h1>{data.description}</h1>
+      <h1>{data.country}</h1>
       <div>
         <button
           onClick={() => {

@@ -1,3 +1,4 @@
+// index.js in api/mixes
 import dbConnect from "../../../db/connect";
 import Mix from "../../../db/models/Mix";
 
@@ -12,6 +13,7 @@ export default async function handler(request, response) {
   if (request.method === "POST") {
     try {
       const mixData = request.body;
+      mixData.tags = mixData.tags || []; // Ensure tags is an array
       await Mix.create(mixData);
 
       response.status(201).json({ status: "Mix created" });
@@ -19,4 +21,6 @@ export default async function handler(request, response) {
       response.status(400).json({ error: error.message });
     }
   }
+
+  // ... (existing code for other methods)
 }
