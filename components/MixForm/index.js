@@ -15,6 +15,7 @@ export default function MixForm({ value, onSubmit, isEditMode }) {
 
   const [formValues, setFormValues] = useState({
     imageURL: "",
+    url: "",
     title: "",
     country: "",
     description: "",
@@ -26,6 +27,7 @@ export default function MixForm({ value, onSubmit, isEditMode }) {
       setFormValues((prevFormValues) => ({
         ...prevFormValues,
         imageURL: value.imageURL || "",
+        url: value.url || "",
         title: value.title || "",
         country: value.country || "",
         description: value.description || "",
@@ -82,6 +84,15 @@ export default function MixForm({ value, onSubmit, isEditMode }) {
         name="imageURL"
         value={formValues.imageURL}
         onChange={(e) => handleInputChange("imageURL", e.target.value)}
+      />
+
+      <label htmlFor="url">Soundcloud URL:</label>
+      <input
+        type="text"
+        id="url"
+        name="url"
+        value={formValues.url}
+        onChange={(e) => handleInputChange("url", e.target.value)}
       />
 
       <label htmlFor="title">Title:</label>
