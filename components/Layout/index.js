@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import LiveHeader from "../LiveHeader";
+import Footer from "../Footer";
 
 const RootLayout = ({ children }) => {
   return (
@@ -7,6 +8,7 @@ const RootLayout = ({ children }) => {
       <Header />
       <LiveHeader />
       <main>{children}</main>
+      <Footer />
     </>
   );
 };

@@ -15,7 +15,7 @@ const nextConfig = {
     return config;
   },
   images: {
-    domains: ["media2.ntslive.co.uk", "www.nts.live"],
+    domains: ["media2.ntslive.co.uk", "www.nts.live", "www.soundcloud.com"],
   },
 };
 

@@ -50,6 +50,7 @@ export default function Mix() {
       <h1>{data.description}</h1>
       <h1>{data.country}</h1>
       <h1>{data.tags}</h1>
+
       <div>
         <button
           onClick={() => {
