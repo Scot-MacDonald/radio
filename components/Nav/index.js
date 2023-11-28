@@ -5,15 +5,13 @@ export default function Nav() {
     <>
       <ul className={styles.nav}>
         <li>
-          <Link href="mixes/time-is-away-the-colour-of-pomegranates">
-            LATEST
-          </Link>
+          <Link href="/">LATEST</Link>
         </li>
         <li>
           <Link href="/mixes">MIXES</Link>
         </li>
         <li>
-          <Link href="/mixes">ABOUT</Link>
+          <Link href="/about">ABOUT</Link>
         </li>
         <li>
           <Link href="/mixes">EVENTS</Link>
