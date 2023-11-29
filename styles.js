@@ -15,7 +15,7 @@ export default createGlobalStyle`
   *::after {
     box-sizing: border-box;
   }
-
+a{padding-bottom:100px;}
   body {
    background:black;
    color:white;

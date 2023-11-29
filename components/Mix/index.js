@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import MixForm from "@/components/MixForm/index";
 import Link from "next/link";
+import styles from "@/styles/mix.module.css";
+import Image from "next/image";
 
 export default function Mix() {
   const [isEditMode, setIsEditMode] = useState(false);
@@ -46,10 +48,17 @@ export default function Mix() {
   return (
     <>
       <small>ID: {slug}</small>
-      <h1>{data.mix} </h1>
+      <h1>{data.title}</h1>
       <h1>{data.description}</h1>
       <h1>{data.country}</h1>
       <h1>{data.tags}</h1>
+      <Image
+        className={styles.mixContainer}
+        src={data.imageURL}
+        alt={`Image for ${data.title}`}
+        width={312}
+        height={205}
+      />
 
       <div>
         <button

@@ -8,7 +8,7 @@ export default function Nav() {
           <Link href="/">LATEST</Link>
         </li>
         <li>
-          <Link href="/mixes">MIXES</Link>
+          <Link href="/explore">EXPLORE</Link>
         </li>
         <li>
           <Link href="/about">ABOUT</Link>

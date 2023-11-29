@@ -39,7 +39,15 @@ export default function MixForm({ value, onSubmit, isEditMode }) {
   }, [value, isEditMode, initialTags]);
 
   const handleTagsChange = (e) => {
-    setTags(e.target.value.split(",").map((tag) => tag.trim()));
+    const newTags = e.target.value
+      .split(",")
+      .map((tag) => tag.trim())
+      .filter((tag) => tag !== ""); // Remove empty tags
+
+    // Remove duplicates by converting the array to a Set and back to an array
+    const uniqueTags = [...new Set(newTags)];
+
+    setTags(uniqueTags);
   };
 
   const handleTagDelete = (index) => {
@@ -61,10 +69,10 @@ export default function MixForm({ value, onSubmit, isEditMode }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Combine form values and tags for submission
+    // Send tags as an array in the formData object
     const formData = {
       ...formValues,
-      tags: tags.join(","),
+      tags: tags,
     };
 
     // Call the onSubmit function with the form data
@@ -73,10 +81,6 @@ export default function MixForm({ value, onSubmit, isEditMode }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="mix-input">
-        {isEditMode ? "Edit the mix" : "Enter a new mix"}
-      </label>
-
       <label htmlFor="imageURL">Image URL:</label>
       <input
         type="text"
@@ -101,9 +105,7 @@ export default function MixForm({ value, onSubmit, isEditMode }) {
         id="title"
         name="title"
         value={formValues.title}
-        onChange={(e) =>
-          setFormValues({ ...formValues, title: e.target.value })
-        }
+        onChange={(e) => handleInputChange("title", e.target.value)}
       />
 
       <label htmlFor="country">Country:</label>
@@ -112,20 +114,16 @@ export default function MixForm({ value, onSubmit, isEditMode }) {
         id="country"
         name="country"
         value={formValues.country}
-        onChange={(e) =>
-          setFormValues({ ...formValues, country: e.target.value })
-        }
+        onChange={(e) => handleInputChange("country", e.target.value)}
       />
+
       <label htmlFor="description">Description:</label>
-      <input
-        type="text"
+      <textarea
         id="description"
         name="description"
         value={formValues.description}
-        onChange={(e) =>
-          setFormValues({ ...formValues, description: e.target.value })
-        }
-      />
+        onChange={(e) => handleInputChange("description", e.target.value)}
+      ></textarea>
 
       <label htmlFor="date">Date:</label>
       <input
@@ -133,7 +131,7 @@ export default function MixForm({ value, onSubmit, isEditMode }) {
         id="date"
         name="date"
         value={formValues.date}
-        onChange={(e) => setFormValues({ ...formValues, date: e.target.value })}
+        onChange={(e) => handleInputChange("date", e.target.value)}
       />
 
       <label htmlFor="tags">Tags:</label>

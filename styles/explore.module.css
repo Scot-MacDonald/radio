@@ -1,0 +1,37 @@
+.selectionBar {
+  background-color: #121212;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.select {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #121212;
+  padding: 10px;
+}
+
+.header {
+  display: flex;
+}
+.tags {
+  font-size: 12px;
+  margin: 2px;
+  padding: 6px 8px;
+  border: 1px solid #4c4c4c;
+  color: #ccc;
+  text-decoration: none;
+  -webkit-transition: background-color 0.1s linear;
+  -moz-transition: background-color 0.1s linear;
+  -ms-transition: background-color 0.1s linear;
+  -o-transition: background-color 0.1s linear;
+  transition: background-color 0.1s linear;
+  cursor: pointer;
+}
+
+.xBt {
+  color: white;
+  background: transparent;
+  border: transparent;
+}
