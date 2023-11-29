@@ -24,7 +24,7 @@ export default function MixList() {
   return (
     <ul className={styles.mixes}>
       {data.map((mix) => (
-        <li className={styles.mix} key={mix._id}>
+        <li className={styles.mix} key={mix.slug}>
           <div className={styles.mixContent}>
             <div className={styles.imageContainer}>
               <Image
@@ -53,7 +53,7 @@ export default function MixList() {
             </div>
 
             <div className={styles.mixHeader}>
-              <Link href={`/${mix._id}`}>
+              <Link href={`/${mix.slug}`}>
                 <div className={styles.mixDate}>
                   <div>{new Date(mix.date).toLocaleDateString()}</div>
                   <div>{mix.country}</div>
@@ -63,15 +63,13 @@ export default function MixList() {
             </div>
 
             <div className={styles.mixTags}>
-              <div>
-                {mix.tags
-                  .flatMap((tagItem) => tagItem.split(","))
-                  .map((tag, index) => (
-                    <span className={styles.mixTag} key={index}>
-                      {tag.trim()}
-                    </span>
-                  ))}
-              </div>
+              {mix.tags
+                .flatMap((tagItem) => tagItem.split(","))
+                .map((tag, index) => (
+                  <span className={styles.mixTag} key={index}>
+                    {tag.trim()}
+                  </span>
+                ))}
             </div>
           </div>
         </li>
