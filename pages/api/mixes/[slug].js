@@ -3,10 +3,10 @@ import Mix from "../../../db/models/Mix";
 
 export default async function handler(request, response) {
   await dbConnect();
-  const { id } = request.query;
+  const { slug } = request.query; // Change 'id' to 'slug'
 
   if (request.method === "GET") {
-    const mix = await Mix.findById(id);
+    const mix = await Mix.findOne({ slug }); // Use 'findOne' instead of 'findById'
 
     if (!mix) {
       return response.status(404).json({ status: "Not Found" });
@@ -16,15 +16,13 @@ export default async function handler(request, response) {
   }
 
   if (request.method === "PUT") {
-    await Mix.findByIdAndUpdate(id, {
-      $set: request.body,
-    });
+    await Mix.findOneAndUpdate({ slug }, { $set: request.body }); // Use 'findOneAndUpdate'
 
     response.status(200).json({ message: "Success!" });
   }
 
   if (request.method === "DELETE") {
-    await Mix.findByIdAndDelete(id);
+    await Mix.findOneAndDelete({ slug }); // Use 'findOneAndDelete'
 
     response.status(200).json({ message: "Success!" });
   }

@@ -7,12 +7,12 @@ import Link from "next/link";
 export default function Mix() {
   const [isEditMode, setIsEditMode] = useState(false);
   const router = useRouter();
-  const { id } = router.query;
+  const { slug } = router.query;
 
-  const { data, isLoading, mutate } = useSWR(`/api/mixes/${id}`);
+  const { data, isLoading, mutate } = useSWR(`/api/mixes/${slug}`);
 
   async function handleEdit(formData) {
-    const response = await fetch(`/api/mixes/${id}`, {
+    const response = await fetch(`/api/mixes/${slug}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +27,7 @@ export default function Mix() {
   }
 
   async function handleDelete() {
-    const response = await fetch(`/api/mixes/${id}`, { method: "DELETE" });
+    const response = await fetch(`/api/mixes/${slug}`, { method: "DELETE" });
 
     if (!response.ok) {
       console.log(response.status);
@@ -45,7 +45,7 @@ export default function Mix() {
 
   return (
     <>
-      <small>ID: {id}</small>
+      <small>ID: {slug}</small>
       <h1>{data.mix} </h1>
       <h1>{data.description}</h1>
       <h1>{data.country}</h1>
