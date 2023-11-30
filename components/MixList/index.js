@@ -1,29 +1,40 @@
 // MixList.js
+// MixList.js
 import useSWR from "swr";
 import Link from "next/link";
 import { useSelectedTrack } from "@/context/SelectedTrackContext";
 import styles from "@/styles/mixes.module.css";
 import Image from "next/image";
 
-export default function MixList() {
-  const { data, error } = useSWR("/api/mixes");
-  const { setSelectedTrack } = useSelectedTrack();
+export default function MixList({ mixes }) {
+  console.log("Received Mixes in MixList:", mixes);
+
+  const { setSelectedTrack, selectedTags = [] } = useSelectedTrack();
 
   const handlePlayClick = (trackUrl) => {
     setSelectedTrack(trackUrl);
   };
 
-  if (error) {
-    return <h1>Error loading mixes</h1>;
+  if (!mixes || !Array.isArray(mixes)) {
+    return <h1>No mixes available</h1>;
   }
 
-  if (!data) {
-    return <h1>Loading...</h1>;
-  }
+  // Ensure data is an array before filtering
+  const dataArray = mixes;
+
+  console.log("Selected Tags:", selectedTags);
+  console.log("Mix Data:", dataArray);
+
+  // Filter mixes based on selected tags
+  const filteredMixes = dataArray.filter((mix) =>
+    selectedTags.every((tag) => mix.tags.includes(tag))
+  );
+
+  console.log("Filtered Mixes:", filteredMixes);
 
   return (
     <ul className={styles.mixes}>
-      {data.map((mix) => (
+      {filteredMixes.map((mix) => (
         <li className={styles.mix} key={mix.slug}>
           <div className={styles.mixContent}>
             <div className={styles.imageContainer}>

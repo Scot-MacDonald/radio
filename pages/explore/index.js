@@ -1,39 +1,44 @@
-import React, { useState } from "react";
-import useSWR from "swr";
+// Explore/index.js
+
+import { useState, useEffect, useMemo } from "react";
+import Link from "next/link";
+import useSWR, { mutate } from "swr";
+import MixList from "@/components/MixList";
 import styles from "@/styles/explore.module.css";
+import { useTagStore } from "@/store/store";
 
-export default function SelectionBar() {
+export default function Explore() {
   const [selectedItems, setSelectedItems] = useState([]);
+  const { data: allMixes, error } = useSWR("/api/mixes");
+  const { mutate } = useSWR();
 
-  // Fetch data from API (assuming it returns an array of documents like the one you provided)
-  const { data: mixes, error } = useSWR("/api/mixes");
+  // Add any necessary logic inside the useEffect hook
+  useEffect(() => {
+    // Your side effect logic here, if needed
+  }, [allMixes]);
 
-  const handleItemClick = (item) => {
-    // Check if the item is already selected
-    if (selectedItems.includes(item)) {
-      // If selected, remove it from the selection
-      setSelectedItems(
-        selectedItems.filter((selectedItem) => selectedItem !== item)
-      );
-    } else {
-      // If not selected, add it to the selection
-      setSelectedItems([...selectedItems, item]);
-    }
-  };
+  // Initialize filteredMixes using useMemo
+  const filteredMixes = useMemo(() => {
+    return allMixes
+      ? allMixes.filter((mix) =>
+          selectedItems.every((tag) => mix.tags.includes(tag))
+        )
+      : [];
+  }, [allMixes, selectedItems]);
 
-  const handleRemoveItem = (item) => {
-    // Remove the item from the selection
-    setSelectedItems(
-      selectedItems.filter((selectedItem) => selectedItem !== item)
-    );
-  };
+  // Add the following useEffect for logging
+  useEffect(() => {
+    console.log("Selected Tags in Explore:", selectedItems);
+    console.log("All Mixes in Explore:", allMixes);
+    console.log("Filtered Mixes in Explore:", filteredMixes);
+  }, [selectedItems, allMixes, filteredMixes]);
 
   if (error) return <div>Error loading mixes</div>;
-  if (!mixes) return <div>Loading mixes...</div>;
+  if (!allMixes || !Array.isArray(allMixes)) return <div>Loading mixes...</div>;
 
   // Extract all unique tags from all mixes
   const allTags = Array.from(
-    new Set(mixes.reduce((acc, mix) => [...acc, ...mix.tags], []))
+    new Set(allMixes.reduce((acc, mix) => [...acc, ...(mix.tags || [])], []))
   );
 
   return (
@@ -45,7 +50,12 @@ export default function SelectionBar() {
             {item}{" "}
             <button
               className={styles.xBt}
-              onClick={() => handleRemoveItem(item)}
+              onClick={() => {
+                setSelectedItems((prevItems) =>
+                  prevItems.filter((prevItem) => prevItem !== item)
+                );
+                mutate("/api/mixes"); // Trigger re-fetch when tags change
+              }}
             >
               x
             </button>
@@ -56,15 +66,25 @@ export default function SelectionBar() {
       <h2>GENRES</h2>
       <ul className={styles.select}>
         {allTags.map((tag) => (
-          <li
-            className={styles.tags}
-            key={tag}
-            onClick={() => handleItemClick(tag)}
-          >
-            {tag}
+          <li className={styles.tags} key={tag}>
+            <button
+              className={styles.button}
+              onClick={() => {
+                if (!selectedItems.includes(tag)) {
+                  setSelectedItems((prevItems) => [...prevItems, tag]);
+                  mutate("/api/mixes"); // Trigger re-fetch when tags change
+                }
+              }}
+            >
+              {tag}
+            </button>
           </li>
         ))}
       </ul>
+
+      <div className={styles.explore_select}>
+        <MixList mixes={filteredMixes} />
+      </div>
     </div>
   );
 }

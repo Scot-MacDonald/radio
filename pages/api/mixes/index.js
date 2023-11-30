@@ -1,4 +1,4 @@
-// index.js in api/mixes
+// pages/api/mixes/index.js
 import dbConnect from "../../../db/connect";
 import Mix from "../../../db/models/Mix";
 
@@ -6,7 +6,15 @@ export default async function handler(request, response) {
   await dbConnect();
 
   if (request.method === "GET") {
-    const mixes = await Mix.find();
+    // Extract tags from query parameters
+    const { tags } = request.query;
+
+    // Build a query object based on tags
+    const query = tags
+      ? { tags: { $in: Array.isArray(tags) ? tags : [tags] } }
+      : {};
+
+    const mixes = await Mix.find(query);
     return response.status(200).json(mixes);
   }
 
@@ -21,6 +29,4 @@ export default async function handler(request, response) {
       response.status(400).json({ error: error.message });
     }
   }
-
-  // ... (existing code for other methods)
 }
